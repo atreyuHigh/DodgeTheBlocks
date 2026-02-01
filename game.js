@@ -17,8 +17,8 @@ const blocks = [];             // active falling blocks
 
 // ---- Player description ----
 const player = {
-  w: 48,
-  h: 48,
+  w: 28,
+  h: 18,
   x: canvas.width / 2 - 24,
   y: canvas.height - 80,
   speed: 280,   // horizontal speed in px/s
@@ -66,6 +66,8 @@ function spawnBlock() {
   const bx = Math.floor(rand(0, canvas.width - bw));
   const speedBase = 120 + elapsed * 20; // base speed increases with time
   const b = { x: bx, y: -bw, w: bw, h: bw, speed: speedBase + rand(0, 60) };
+  // Randomly assign a shape to the block: 'rect' or 'circle'
+  b.shape = Math.random() < 0.5 ? 'rect' : 'circle';
   blocks.push(b);
 }
 
@@ -103,16 +105,24 @@ function update(dt) {
 
 // Draw player and blocks
 function draw() {
-  // clear
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // draw player (bright rectangle)
+  // draw player
   ctx.fillStyle = '#4ee3a4';
   ctx.fillRect(player.x, player.y, player.w, player.h);
 
-  // draw blocks
-  ctx.fillStyle = '#e74c3c';
-  for (const b of blocks) ctx.fillRect(b.x, b.y, b.w, b.h);
+  // draw blocks with shape variation
+  for (const b of blocks) {
+    if (b.shape === 'circle') {
+      ctx.fillStyle = '#e74c3c';
+      ctx.beginPath();
+      ctx.arc(b.x + b.w / 2, b.y + b.h / 2, b.w / 2, 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      ctx.fillStyle = '#e74c3c';
+      ctx.fillRect(b.x, b.y, b.w, b.h);
+    }
+  }
 }
 
 // Main loop using requestAnimationFrame
