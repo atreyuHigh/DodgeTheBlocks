@@ -1,0 +1,60 @@
+/* Basic layout and game area styling */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #111;
+  color: #eee;
+}
+
+.container {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#game-area {
+  position: relative;
+  width: 400px;
+  height: 600px;
+}
+
+canvas {
+  display: block;
+  background: linear-gradient(#222, #111);
+  border: 4px solid #444;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+#hud {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+#hud #score {
+  background: rgba(0,0,0,0.4);
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  background: #2b8cff;
+  color: white;
+  cursor: pointer;
+}
+
+.hidden { display: none; }
+
+/* Mobile hint: make buttons slightly larger on small screens */
+@media (max-width: 420px) {
+  #game-area { transform: scale(0.9); transform-origin: top left; }
+}
